@@ -1,6 +1,22 @@
-const worker = new SharedWorker("worker.js");
-const id = uuid.v4();
+
+try {
+  const worker = new SharedWorker("worker.js");
+  const id = uuid.v4();
 console.log(worker);
+} catch (error) {
+  console.log("error creating Sharedworker");
+  var worker;
+}
+const id = uuid.v4();
+
+
+if (typeof(SharedWorker) !== "undefined") {
+  //great, your browser supports web workers
+  console.log("great, your browser supports web workers");
+} else {
+  //not supported
+  console.log("not supported");
+}
 
 /**worker.port.onmessage = function(e) {
     view(e.data.data);
@@ -10,7 +26,7 @@ console.log(worker);
 // Set initial state
 let webSocketState = WebSocket.CONNECTING;
 
-console.log(`Initializing the web worker for user: ${id}`);
+console.log("Initializing the web worker for user: ${id}");
 worker.port.start();
 worker.port.onmessage = event => {
   switch (event.data.type) {

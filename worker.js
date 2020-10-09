@@ -93,7 +93,7 @@
     broadcastChannel.postMessage({data:'opening', type: "message"});
     const port = e.ports[0];
     port.onmessage = function(e) {
-
+        idToPortMap[e.data.from] = port;
         port.postMessage('Msg recived' );
         if(e.data.type=="connect"){
             console.log("establish connection");
